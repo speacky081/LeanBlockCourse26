@@ -6,7 +6,7 @@
 
 ## About us
 
-[Christoph Spiegel](https://christophspiegel.berlin) will be teaching this course. He is a researcher at ZIB in the IOL group of Prof. Pokutta, working topics relating to Combinatorics, Optimization, Machine Learning, and Proof Formalization. [Silas Rathke](https://www.mi.fu-berlin.de/en/math/groups/geokomb/People/PhD-Students/Silas_Rathke.html) will help as a teaching assistant. He is a Ph.D. student at the FUB in the group of Prof. Szabo working on topics in Extremal Combinatorics and actively working on formalization projects in that area.
+[Christoph Spiegel](https://christophspiegel.berlin) will teach this course. He is a researcher at ZIB in Prof. Pokutta’s IOL group, working on combinatorics, optimization, machine learning, and proof formalization. [Silas Rathke](https://www.mi.fu-berlin.de/en/math/groups/geokomb/People/PhD-Students/Silas_Rathke.html) will serve as the teaching assistant. He is a Ph.D. student at FUB in Prof. Szabo’s group, focusing on extremal combinatorics and related formalization projects.
 
 ## General notes
 
