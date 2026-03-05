@@ -253,13 +253,13 @@ theorem by_contra_example (P : Prop) : ¬¬P → P := by
   intro nnp
   by_contra np
   contradiction
-  
+
 theorem by_contra_example' (P : Prop) : ¬¬P → P := by
   intro nnp
   by_contra np
   exact nnp np
 
--- ... and looking at the axioms we see both use  `Classical.choice`!
+-- ... and looking at the axioms we see both use `Classical.choice`!
 
 #print axioms by_contra_example_push_neg -- propext, Classical.choice, Quot.sound
 #print axioms by_contra_example -- propext, Classical.choice, Quot.sound
@@ -276,7 +276,7 @@ The `by_cases` tactic allows classical case analysis on any proposition:
 This tactic is used around 1,200 times in mathlib.
 -/
 
--- This is the the "law of the excluded middle" ...
+-- This is the "law of the excluded middle" ...
 example (P : Prop) : P ∨ ¬P := Classical.em P
 
 #print Classical.em -- This has an actual proof ...
@@ -287,7 +287,7 @@ example (P : Prop) : P ∨ ¬P := Classical.em P
 
 
 /-
-Looking into lean, this is actually the first time we see something
+Looking into Lean, this is actually the first time we see something
 resembling a mathematical axiom:
 
 ```
@@ -301,7 +301,7 @@ example (P : Prop) : P ∨ ¬P := by
   exact p_or_np
 
 -- ... and if you had a more complicated proof you could do a case
--- distinction with  `rcases` ...
+-- distinction with `rcases` ...
 example (P : Prop) : P ∨ ¬P := by
   have p_or_np := Classical.em P
   rcases p_or_np with (p | np)
@@ -338,10 +338,10 @@ accessing classical axioms when needed.
 theorem exercise_2_1_constructive (P Q : Prop) : (P → Q) → (¬Q → ¬P) := by
   sorry
 
--- Exercise 2.3
+-- Exercise 2.2
 -- Prove this using classical logic and verify that you
 -- used `Classical.choice` with `#print axioms _`
-theorem exercise_2_1_classical (P Q : Prop) : (P → Q) → (¬Q → ¬P) := by
+theorem exercise_2_2_classical (P Q : Prop) : (P → Q) → (¬Q → ¬P) := by
   sorry
 
 /-
