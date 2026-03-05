@@ -143,7 +143,7 @@ theorem push_neg_example (P : Prop) : ¬¬P → P := by
   push_neg
   exact id
 
-#print axioms push_neg_example  -- This does use the axiom of choice (classical logic)
+#print axioms push_neg_example  -- This does use the axiom of excluded middle (classical logic)
 
 /-
 ## Exercise Block B01
