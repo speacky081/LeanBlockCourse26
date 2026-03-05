@@ -8,6 +8,7 @@ import Mathlib.Tactic.Basic
 import Mathlib.Tactic.ByContra
 import Mathlib.Tactic.Push
 import Mathlib.Tactic.NthRewrite
+import Mathlib.Tactic.Tauto
 import ProofGolf
 
 /-
@@ -475,3 +476,41 @@ example (A B C : Prop) : (A ∧ (¬¬C)) ∨ (¬¬B) ∧ C ↔ (A ∧ C) ∨ B �
     · exact push_neg_example D -- this was the classical part
     · exact fun d nd => nd d   -- this is actually constructive
   rw [this, this]
+
+/-
+## The `tauto` tactic
+
+`tauto` closes goals that are propositional tautologies — formulas that hold
+regardless of the truth values of P, Q, R, … It handles conjunction,
+disjunction, negation, implication, biconditional, and classical reasoning,
+but it cannot handle quantifiers or arithmetic.
+
+Here are some highlights from the preceding sections, each solved in one line.
+-/
+
+-- Associativity of disjunction (S03, 11 lines → 1)
+example (P Q R : Prop) : (P ∨ Q) ∨ R ↔ P ∨ (Q ∨ R) := by tauto
+
+-- Distributivity of OR over AND (S03, 12 lines → 1)
+example (P Q R : Prop) : (P ∧ Q) ∨ R ↔ (P ∨ R) ∧ (Q ∨ R) := by tauto
+
+-- Nested AND within OR (S03, 4 lines → 1)
+example (P Q R S : Prop) : (P ∨ Q) ∧ (R ∨ S) →
+    (P ∧ R) ∨ (P ∧ S) ∨ (Q ∧ R) ∨ (Q ∧ S) := by tauto
+
+-- De Morgan for conjunction (S04, 10 lines → 1)
+example (P Q : Prop) : ¬(P ∧ Q) ↔ (¬P ∨ ¬Q) := by tauto
+
+-- Contrapositive equivalence (S04, 7 lines → 1)
+example (P Q : Prop) : (P → Q) ↔ (¬Q → ¬P) := by tauto
+
+-- No fixed point of negation (S04, 8 lines → 1)
+example (P : Prop) : ¬(P ↔ ¬P) := by tauto
+
+-- tauto handles classical reasoning (excluded middle, double negation):
+example (P : Prop) : P ∨ ¬P := by tauto
+
+-- But tauto cannot handle quantifiers:
+-- example (α : Type) (p q : α → Prop) :
+--     (∀ x : α, p x ∧ q x) ↔ ((∀ x : α, p x) ∧ (∀ x : α, q x)) := by tauto
+
