@@ -234,7 +234,7 @@ It is used around 12,000 times in mathlib.
 We already saw this for our proof that the composite of two continuous functions
 is itself continuous. This is whatever implicitly happens in pen-and-paper proofs
 when someone says "Let ... be ..." and it is clear that they are referring to
-an assumption that they pulled from the proposition the want to show.
+an assumption that they pulled from the proposition they want to show.
 -/
 
 -- The identity function: shows that any proposition implies itself
@@ -328,7 +328,7 @@ example (P Q R : Prop) (h₂ : Q → R) : P → (Q → R) := fun _ => h₂
 -- (right of `:`) is blurry as shown by intro. In fact, we will see that
 -- ultimately this is just "nice syntax" for mathematicians and underlying it
 -- everything is one large "arrowed" type. Note that in this version we avoid
--- the `intro p` and the liner flags `p : P` as unused.
+-- the `intro p` and the linter flags `p : P` as unused.
 example (P Q R : Prop) (h₂ : Q → R) (p : P) : (Q → R) := by
   exact h₂
 

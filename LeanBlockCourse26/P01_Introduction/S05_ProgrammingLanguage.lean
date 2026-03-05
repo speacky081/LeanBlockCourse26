@@ -166,7 +166,7 @@ let explicitNumber: number = 42;
 Some types can be coerced into other types, like Nat to Int.
 -/
 
-def implicitSub'' (x : Nat) (y : Int) := x - y -- able to coerce y into Int and output
+def implicitSub'' (x : Nat) (y : Int) := x - y -- able to coerce x into Int and output
 
 #check implicitSub''
 #eval implicitSub'' 2 3

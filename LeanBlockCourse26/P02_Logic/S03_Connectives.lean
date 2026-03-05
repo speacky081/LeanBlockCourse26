@@ -721,7 +721,7 @@ To prove `P ↔ Q`, we need to prove both `P → Q` and `Q → P`. We can:
 /-
 Even though you can think of `P ↔ Q` as `(P → Q) ∧ (Q → P)`,
 under the hood lean models this directly as a structure.
-This also tells you where the `.mp` and `.mpr` from earler are from.
+This also tells you where the `.mp` and `.mpr` from earlier are from.
 
 structure Iff (a b : Prop) : Prop where
   intro ::
@@ -754,7 +754,7 @@ example (P Q : Prop) (p_to_q : P → Q) (q_to_p : Q → P) : P ↔ Q :=
   ⟨p_to_q, q_to_p⟩
 
 -- But for all of these the order of the underlying structure was used.
--- If you want to avoid this, you need to instanciate it with names.
+-- If you want to avoid this, you need to instantiate it with names.
 example (P Q : Prop) (p_to_q : P → Q) (q_to_p : Q → P) : P ↔ Q :=
   { mpr := q_to_p, mp := p_to_q }
 
@@ -778,7 +778,7 @@ example (P Q : Prop) (h : P ↔ Q) (q : Q) : P := by
 example (P Q : Prop) (h : P ↔ Q) (p : P) : Q := h.mp p
 example (P Q : Prop) (h : P ↔ Q) (q : Q) : P := h.mpr q
 
--- ... and alternatuvely we can use `1` and `2` to access the attributes ...
+-- ... and alternatively we can use `1` and `2` to access the attributes ...
 example (P Q : Prop) (h : P ↔ Q) (p : P) : Q := h.1 p
 example (P Q : Prop) (h : P ↔ Q) (q : Q) : P := h.2 q
 
@@ -869,8 +869,8 @@ example (P Q R : Prop)
 ## Exercise Block B03
 
 Remember:
-AND – use ⟨ ⟩ with ,
-OR  - use ( ) with |
+AND – use `⟨ ⟩` with `,`
+OR  – use `( )` with `|`
 -/
 
 -- Prove the associativity of disjunction: `(P ∨ Q) ∨ R ↔ P ∨ (Q ∨ R)`.
