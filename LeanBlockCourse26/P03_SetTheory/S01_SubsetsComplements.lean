@@ -12,7 +12,7 @@ Let us review something that we already briefly used in the last exercise block:
 So far we have always seen variables as explicit arguments to statements, usually
 looking something like `(P : Prop)`. Here we are doing three things differently:
 
-1. We are using `variable` to declare an that is used in any statement that follows.
+1. We are using `variable` to declare a variable that is used in any statement that follows.
 2. We are using curly brackets `{}` to denote an implicit argument.
 3. We are using `Type*` to denote an unspecified type (more on this later).
 -/
@@ -21,31 +21,30 @@ looking something like `(P : Prop)`. Here we are doing three things differently:
 theorem explicit_argument (P : Prop) (p : P) : P := p
 
 -- ... but in this case specifying `p : P` already implies `P : Prop`.
-theorem implict_argument {P : Prop} (p : P) : P := p
+theorem implicit_argument {P : Prop} (p : P) : P := p
 
 /--
 Both of these state the same, but specifying `{P : Prop}` reduces the number of arguments
 you need to specify when invoking it.
--/ 
+-/
 example (R S : Prop) (r : R) (s : S) : R ∧ S := by
   constructor
   · exact explicit_argument R r
-  · exact implict_argument s
+  · exact implicit_argument s
 
--- Note that you can always override any implict arguments with `@`
+-- Note that you can always override any implicit arguments with `@`
 example (R S : Prop) (r : R) (s : S) : R ∧ S := by
   constructor
-  · exact @implict_argument R r  -- now we *need* to specify the `R` ...
-  · exact @implict_argument _ s  -- ... though you can refuse to elaborate through `_`
-
+  · exact @implicit_argument R r  -- now we *need* to specify the `R` ...
+  · exact @implicit_argument _ s  -- ... though you can refuse to elaborate through `_`
 
 /-
 Using `variable` allows us to have cleaner theorem statements whenever arguments are
-shared.  Other languages also have global variables but usually these are very much 
-discouraged. In lean however they are very important and used throughout mathlib:
+shared. Other languages also have global variables but usually these are very much
+discouraged. In Lean however they are very important and used throughout mathlib:
 if you are working on a file that collects statements about finite simple graphs,
 you do not want to specify for each that it requires to be given a
-simple graph `(G ; SimpleGraph V)` based implicit vertex type `{V : Type*}` which
+simple graph `(G : SimpleGraph V)` with implicit vertex type `{V : Type*}` which
 is also finite `[FinType V]` (the square brackets we will elaborate on later).
 
 We can scope these shared arguments through a `namespace`.
@@ -67,15 +66,14 @@ example (r : R) (s : S) : R ∧ S := by
   · exact @implicit_argument' R r
   · exact @implicit_argument' _ s
 
-end sharedArgumentExample 
+end sharedArgumentExample
 
--- Because the `namespace` was closed, this no longer know about `{P : Prop}`
+-- Because the `namespace` was closed, this no longer knows about `{P : Prop}`
 example {P : Prop} (p : P) : P := p
 
 -- To access results from a `namespace` you need to re-open it or explicitly specify it.
 -- #check implicit_argument'                    -- This does *not* work ...
 #check sharedArgumentExample.implicit_argument' -- ... but this does!
-
 
 /-
 # Sets
@@ -93,7 +91,7 @@ variable {α : Type*}
 #check Set
 
 /-
-A `Set` in mathlib is just a prediate `α → Prop`.
+A `Set` in mathlib is just a predicate `α → Prop`.
 
 ```
 def Set (α : Type u) := α → Prop
@@ -105,8 +103,8 @@ Importantly it:
 (ii) Is defined through a predicate `α → Prop` with `e : α` an element of `S` iff `P e`
 
 Notation like `{ ... }`, `∈`, `∉`, `⊆`, `∅`, ... are nice syntactic sugar on top of this.
-But note that mathlib actually does *not* want you think of sets like this:
- 
+But note that mathlib actually does *not* want you to think of sets like this:
+
 "Although `Set` is defined as `α → Prop`, this is an implementation detail which should
 not be relied on. Instead, `setOf` and membership of a set (`∈`) should be used to
 convert between sets and predicates."
@@ -130,7 +128,7 @@ lemma mem_singleton_iff {x y : α} : x ∈ ({y} : Set α) ↔ x = y :=  by rfl
 -- `rfl` tactic works but term `rfl` does not because the tactic,
 -- can invoke some trivial statements like `Iff.intro`
 example {x y : α} : x ∈ ({y} : Set α) ↔ x = y := by
-  apply Iff.intro <;> intro h <;> exact h 
+  apply Iff.intro <;> intro h <;> exact h
 
 -- You should probably just use `Set.singleton` to define a singleton set
 example {x y : α} : x ∈ Set.singleton y ↔ x = y := by rfl
@@ -141,7 +139,7 @@ lemma mem_pair (t x y : α) : t ∈ ({x, y} : Set α) ↔ t = x ∨ t = y := by 
 /-
 ## Subsets
 
-`S ⊆ T` is syntax for `HasSubset` and is (essentialy) defined as
+`S ⊆ T` is syntax for `HasSubset` and is (essentially) defined as
 `∀ x, x ∈ S → x ∈ T`. `S ⊂ T` is syntax for `HasSSubset` and is
 (again essentially) defined as `S ⊆ T ∧ ¬T ⊆ S`.
 -/
@@ -156,7 +154,7 @@ lemma ssubset_def {S T : Set α} : (S ⊂ T) = (S ⊆ T ∧ ¬T ⊆ S) := rfl
 -- Every set is a subset of itself – `Set.Subset.rfl` in mathlib
 lemma Subset.rfl (S : Set α) : S ⊆ S := by rfl
 
-example (S : Set α) : S ⊆ S := by 
+example (S : Set α) : S ⊆ S := by
   rw [subset_def] -- You can rewrite definitions, but here this is optional
   intro x h
   exact h
@@ -178,27 +176,27 @@ example {S T R : Set α} (h₁ : S ⊆ T) (h₂ : T ⊆ R) : S ⊆ R := by
 
 example {S T R : Set α} (h₁ : S ⊆ T) (h₂ : T ⊆ R) : S ⊆ R := fun _ xs => h₂ (h₁ xs)
 
--- **Empty Set**--
--- The empty set `∅` is the set of elements of type `α` for which `False` holds – 
+-- **Empty Set**
+-- The empty set `∅` is the set of elements of type `α` for which `False` holds –
 -- `Set.empty_def` in mathlib
 theorem empty_def : ∅ = {x : α | False} := rfl
 
 -- The empty set is a subset of every set – `Set.empty_subset` in mathlib
 lemma empty_subset (S : Set α) : ∅ ⊆ S := by
   rw [empty_def, subset_def]
-  intro x h 
+  intro x h
   exfalso
   rw [mem_setOf] at h
   exact h
 
 example (S : Set α) : ∅ ⊆ S := by
-  intro x h 
+  intro x h
   exfalso
   exact h
 
 -- this does not use any axioms though, just `False.elim`
 #golf example (S : Set α) : ∅ ⊆ S := by
-  intro x h 
+  intro x h
   contradiction
 
 /-
