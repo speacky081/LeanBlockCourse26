@@ -307,18 +307,27 @@ def idGeneric' {T : Type} (n : T) : T := n -- curly brackets make T implicit
 -- We can prove that idNat and idGeneric applied to Nat return the same output!
 def idGeneric_Nat_eq_idNat : idGeneric Nat = idNat := rfl
 
--- doesn't really matter if we use 'def' or 'theorem' here
+-- `theorem` is an alias for `def` (with a subtle difference in transparency
+-- that we will discuss later). `lemma` is a synonym for `theorem`.
 theorem idGeneric_Nat_eq_idNat' : idGeneric Nat = idNat := rfl
+
+-- `example` is an unnamed version — it type-checks but adds no name to the
+-- environment. We will use `example` extensively for exercises.
+example : idGeneric Nat = idNat := rfl
 
 -- This does not work because not only the type is checked (Nat)
 -- but also the specific instance, which is not the same (0 != n)
 -- example : idGeneric Nat = constZero := rfl
 
--- A constructive proof of the type of the statement `P → P`
+-- A constructive proof of the statement `P → P`
 def identity_proof (P : Prop) (p : P) : P := p
 
+-- Same proof as a theorem (in tactic mode)
 theorem identity_proof' (P : Prop) (p : P) : P := by
-  exact p -- same proof in tactic mode
+  exact p
+
+-- Same proof as an unnamed example
+example (P : Prop) (p : P) : P := p
 
 -- Blurring the lines between programming a function and writing a proof:
 -- How to prove P ∧ Q → P
