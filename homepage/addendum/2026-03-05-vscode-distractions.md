@@ -1,7 +1,7 @@
 ---
 title: "VS Code distractions"
 parent: Addendum
-nav_order: 4
+nav_order: 5
 ---
 
 # VS Code distractions

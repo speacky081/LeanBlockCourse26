@@ -1,7 +1,7 @@
 ---
 title: "theorem vs lemma"
 parent: Addendum
-nav_order: 1
+nav_order: 2
 ---
 
 # `theorem`, `lemma`, `example`, and `def`

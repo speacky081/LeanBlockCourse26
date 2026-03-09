@@ -1,7 +1,7 @@
 ---
 title: "When · focusing is optional"
 parent: Addendum
-nav_order: 3
+nav_order: 4
 ---
 
 # When `·` focusing is optional
