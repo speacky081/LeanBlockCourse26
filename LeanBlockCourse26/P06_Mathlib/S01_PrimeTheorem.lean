@@ -1,9 +1,12 @@
 import Mathlib.Data.Nat.Prime.Basic
 import Mathlib.Data.Nat.Nth
+import Mathlib.Data.Nat.PrimeFin
+import Mathlib.NumberTheory.PrimeCounting
+import Mathlib.SetTheory.Cardinal.Basic
 import Mathlib.Tactic.TFAE
 
 /-
-## Euclid's theorem: there are infinitely many prime
+## Euclid's theorem: there are infinitely many primes
 
 How exactly is this result stated?
 
@@ -19,14 +22,14 @@ How exactly is this result stated?
    many primes.
 * "The set of primes cannot be finite"
 * "The function counting the number of primes that are less than or equal to a real number x is
-   unboundend, and so there are infinitely many primes"
+   unbounded, and so there are infinitely many primes"
 * "Our final proof goes a considerable step further and demonstrates not only that there are
    infinitely many primes, but also that the series ∑p 1/p diverges.""
 -/
 
 
 /-
-You will now have to work with mathlib, i.e., understand its definitions and finds its results.
+You will now have to work with mathlib, i.e., understand its definitions and find its results.
 
 To do this, you should:
 
@@ -71,6 +74,12 @@ theorem infinitude_of_primes_tfae : [
 
     -- 7) The sequence of primes is strictly monotone increasing
     StrictMono (Nat.nth Nat.Prime),
+
+    -- 8) The prime counting function is unbounded
+    ∀ n : ℕ, ∃ m, n ≤ Nat.primeCounting m,
+
+    -- 9) The cardinality of the primes equals ℵ₀
+    Cardinal.mk { p : ℕ // p.Prime } = ℵ₀,
   ].TFAE := by
 
   tfae_have 5 → 6 := by sorry -- Theo
@@ -102,6 +111,14 @@ theorem infinitude_of_primes_tfae : [
   tfae_have 7 → 1 := by sorry
 
   tfae_have 1 → 7 := by sorry
+
+  tfae_have 1 → 8 := by sorry
+
+  tfae_have 8 → 5 := by sorry
+
+  tfae_have 2 → 9 := by sorry
+
+  tfae_have 9 → 2 := by sorry
 
   tfae_finish
 
