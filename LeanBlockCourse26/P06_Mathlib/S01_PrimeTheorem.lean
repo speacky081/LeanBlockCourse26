@@ -194,7 +194,7 @@ theorem infinitude_of_primes_tfae : [
   tfae_have 3 → 4 := by sorry -- Alexandra
 
   tfae_have 5 → 4 := by sorry -- Sammy
-
+  
   tfae_have 6 → 3 := by sorry -- Anna
 
   tfae_have 6 → 1 := by sorry -- Alexander
